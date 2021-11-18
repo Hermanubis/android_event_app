@@ -55,8 +55,29 @@ class LoginActivity : AppCompatActivity() {
 //        val savedUsername = preferences.getString("USERNAME", "")
 //        username.setText(savedUsername)
         login.setOnClickListener {
-            val intent: Intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val inputtedUsername = username.text.toString().trim()
+            val inputtedPassword = password.text.toString().trim()
+
+            firebaseAuth.signInWithEmailAndPassword(inputtedUsername, inputtedPassword)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = firebaseAuth.currentUser
+                        Toast.makeText(this, "Logged in as user: ${user!!.email}", Toast.LENGTH_SHORT).show()
+                        // Go to the next Activity ...
+                        if (user.isEmailVerified) {
+                            // Do some more privileged action
+                            val intent: Intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }else{
+                            Toast.makeText(this, "Please verify your email", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        val exception = task.exception
+                        Toast.makeText(this, "Failed: $exception", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
         }
         signUp.setOnClickListener {
 //            firebaseAnalytics.logEvent("login_clicked", null)
@@ -85,68 +106,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             }
-        }
-        signUp.setOnClickListener {
-            val inputtedUsername: String = username.text.toString()
-            val inputtedPassword: String = password.text.toString()
 
-            firebaseAuth
-                .createUserWithEmailAndPassword(inputtedUsername, inputtedPassword)
-                .addOnCompleteListener { task: Task<AuthResult> ->
-                    if (task.isSuccessful) {
-                        firebaseAnalytics.logEvent("signup_success", null)
-                        val currentUser: FirebaseUser = firebaseAuth.currentUser!!
-
-                        Toast.makeText(
-                            this,
-                            "Registered successfully as: ${currentUser.email}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } else {
-                        val exception: Exception? = task.exception
-                        val bundle = Bundle()
-
-                        when (exception) {
-                            is FirebaseAuthWeakPasswordException -> {
-                                bundle.putString("error_type", "weak_password")
-                                firebaseAnalytics.logEvent("signup_failed", bundle)
-                                Toast.makeText(
-                                    this,
-                                    "Your password does not meet minimum requirements! Must be at least 6 characters long.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            is FirebaseAuthUserCollisionException -> {
-                                bundle.putString("error_type", "user_collision")
-                                firebaseAnalytics.logEvent("signup_failed", bundle)
-                                Toast.makeText(
-                                    this,
-                                    "An account already exists for this email!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            is FirebaseAuthInvalidCredentialsException -> {
-                                bundle.putString("error_type", "invalid_credentials")
-                                firebaseAnalytics.logEvent("signup_failed", bundle)
-                                Toast.makeText(
-                                    this,
-                                    "You must supply a valid formatted email!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            else -> {
-                                bundle.putString("error_type", "generic")
-                                firebaseAnalytics.logEvent("signup_failed", bundle)
-                                Toast.makeText(
-                                    this,
-                                    "Failed to register: {exception}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-
-                    }
-                }
         }
         username.addTextChangedListener(textWatcher)
         password.addTextChangedListener(textWatcher)
@@ -170,4 +130,18 @@ class LoginActivity : AppCompatActivity() {
 
         override fun afterTextChanged(p0: Editable?) {}
     }
+    override fun onStart() {
+        super.onStart()
+
+        // If the user is already logged in, send them directly to the Maps Activity
+        if (firebaseAuth.currentUser != null) {
+            val user = firebaseAuth.currentUser
+            Toast.makeText(this, "Logged in as user: ${user!!.email}",
+                Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
 }

@@ -14,12 +14,14 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var searchbar: SearchView
     private lateinit var search: Button
     private lateinit var mapButton: Button
     private lateinit var viewEvents: Button
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,9 +84,11 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 //
-//        viewEvents.setOnClickListener {
-//            val intent: Intent = Intent(this, headlineActivity::class.java)
-//            startActivity(intent)
-//        }
+        viewEvents.setOnClickListener {
+            firebaseAuth.signOut()
+            val intent: Intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 }
