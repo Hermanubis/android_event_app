@@ -1,4 +1,12 @@
 package edu.gwu.project2
 
-class event {
-}
+import java.io.Serializable
+
+data class event (
+    val name: String,
+    val time: String,
+    val img: String,
+    val venue: String,
+    val locale: String,
+    val info: String
+    ): Serializable

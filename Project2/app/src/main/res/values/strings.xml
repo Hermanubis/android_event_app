@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Project2</string>
-    <string name="searchTitle">Event Search</string>
-    <string name="searchButton">Search</string>
+    <string name="searchTitle">Find Your Favorite Events</string>
+    <string name="searchButton">Event Search</string>
+    <string name="searchButton1">Venue Search</string>
     <string name="byLocation">Find Events by Location</string>
     <string name="mapViewButton">View Map</string>
     <string name="topEvents">Highlighted Events</string>
