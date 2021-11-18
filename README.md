@@ -4,7 +4,7 @@
 Bring Your Own Idea!
 Event finder based on user location and interest
 
-## Getting Started
+## Getting Started 
 1. Clone this repo to your local machine.
 2. Create a new folder inside of your cloned repo (e.g. like "Project1").
 3. Create a new Android Studio project (min SDK version of API 23). During the initial project setup, set the Save location to the new folder that you just created (e.g. so you can commit your project back into this repo).
