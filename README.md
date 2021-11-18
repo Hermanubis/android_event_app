@@ -2,6 +2,7 @@
 
 # CSCI 4237 - Project 2 - BYOI
 Bring Your Own Idea!
+Event finder based on user location and interest
 
 ## Getting Started
 1. Clone this repo to your local machine.
