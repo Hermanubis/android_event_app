@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136074727765",
+    "project_id": "project2-64a5f",
+    "storage_bucket": "project2-64a5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136074727765:android:0b34fec6d26aa978021fdc",
+        "android_client_info": {
+          "package_name": "edu.gwu.project2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136074727765-2jbb0ne48t37u0hnua6kietf91ijpsc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9cFnBMI-S_upPcthoRi3STlqAHyO1TWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136074727765-2jbb0ne48t37u0hnua6kietf91ijpsc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

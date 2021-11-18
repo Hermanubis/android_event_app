@@ -54,8 +54,11 @@ class LoginActivity : AppCompatActivity() {
 //
 //        val savedUsername = preferences.getString("USERNAME", "")
 //        username.setText(savedUsername)
-//
         login.setOnClickListener {
+            val intent: Intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        signUp.setOnClickListener {
 //            firebaseAnalytics.logEvent("login_clicked", null)
 //
 //            // Save the username to SharedPreferences
@@ -66,47 +69,19 @@ class LoginActivity : AppCompatActivity() {
 
                 if(task.isSuccessful){
                     val user = firebaseAuth.currentUser
+                    user?.sendEmailVerification()
                     Toast.makeText(this, "Created user: ${user!!.email}",Toast.LENGTH_LONG).show()
                     val editor = preferences.edit()
                     editor.putString("USERNAME", inputtedUsername)
                     editor.apply()
-                    val intent: Intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+
                 }else {
 
                     val bundle = Bundle()
                     val exception: Exception? = task.exception
                     Toast.makeText(this, "Failed: $exception", Toast.LENGTH_LONG).show()
 
-//                    when (exception) {
-//                        is FirebaseAuthInvalidUserException -> {
-//                            bundle.putString("error_type", "invalid_user")
-//                            firebaseAnalytics.logEvent("login_failed", bundle)
-//                            Toast.makeText(
-//                                this,
-//                                "We can\\'t find an account with this email. Try signing up for an account!",
-//                                Toast.LENGTH_LONG
-//                            ).show()
-//                        }
-//                        is FirebaseAuthInvalidCredentialsException -> {
-//                            bundle.putString("error_type", "invalid_credentials")
-//                            firebaseAnalytics.logEvent("login_failed", bundle)
-//                            Toast.makeText(
-//                                this,
-//                                "Please check your username &amp; password and try again!",
-//                                Toast.LENGTH_LONG
-//                            ).show()
-//                        }
-//                        else -> {
-//                            bundle.putString("error_type", "generic")
-//                            firebaseAnalytics.logEvent("login_failed", bundle)
-//                            Toast.makeText(
-//                                this,
-//                                "Failed to login:{exception}",
-//                                Toast.LENGTH_LONG
-//                            ).show()
-//                        }
-//                    }
+
                 }
 
             }
