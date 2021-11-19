@@ -33,7 +33,7 @@ class eventManager {
 
         var request: Request =
             Request.Builder()
-                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=devjam&source=universe&countryCode=US&apikey=$eventAPI")
+                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&countryCode=US&apikey=$eventAPI")
                 .header("Authorization", "$eventAPI")
                 .build()
 
@@ -43,7 +43,7 @@ class eventManager {
 
         if (response.isSuccessful && !responseBody.isNullOrBlank()) {
             val json: JSONObject = JSONObject(responseBody)
-            val events: JSONArray = json.getJSONArray("events")
+            val events: JSONArray = json.getJSONObject("_embedded").getJSONArray("events")
 
             for (i in 0 until events.length()) {
                 val curr: JSONObject = events.getJSONObject(i)

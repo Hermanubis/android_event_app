@@ -2,7 +2,6 @@ package edu.gwu.project2
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -22,21 +21,21 @@ class resultActivity : AppCompatActivity() {
 
         // Retrieve data from the Intent that launched this screen
         val intent: Intent = getIntent()
-        val searchTerm: String = intent.getStringExtra("searchTerm")!!
+        val searchTerm: String = intent.getStringExtra("TERM")!!
 
         if(!searchTerm.isNullOrEmpty()) {
 
             val eventManager: eventManager = eventManager()
-            val newsAPI = getString(R.string.eventAPI)
+            val eventAPI = getString(R.string.eventAPI)
 
 
             val title = "Results for ${searchTerm}"
             setTitle(title)
             doAsync {
 
-//                    var articles: List<news> = eventManager.retrieveAllNews(newsAPI, searchTerm)
+//                    var articles: List<news> = eventManager.retrieveAllNews(eventAPI, searchTerm)
                 val events: List<event> = try {
-                    eventManager.retrieveEvents(newsAPI, searchTerm)
+                    eventManager.retrieveEvents(eventAPI, searchTerm)
                 } catch(exception: Exception) {
 //                        Log.e("resultActivity", "Retrieving news failed!", exception)
                     listOf<event>()
