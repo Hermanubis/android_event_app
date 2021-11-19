@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var search: Button
     private lateinit var mapButton: Button
     private lateinit var viewEvents: Button
+    private lateinit var logout:Button
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        firebaseAuth = FirebaseAuth.getInstance()
         val preferences: SharedPreferences =
             getSharedPreferences("eventapp", Context.MODE_PRIVATE)
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         search = findViewById(R.id.search)
         mapButton = findViewById(R.id.mapButton)
         viewEvents = findViewById(R.id.viewEvents)
+        logout = findViewById(R.id.logout)
 
         search.isEnabled = false
 
@@ -83,12 +85,14 @@ class MainActivity : AppCompatActivity() {
 //            val intent: Intent = Intent(this, MapsActivity::class.java)
 //            startActivity(intent)
 //        }
-//
-        viewEvents.setOnClickListener {
-            firebaseAuth.signOut()
+//        viewEvents.setOnClickListener {
+//            val intent: Intent = Intent(this, Activity::class.java)
+//            startActivity(intent)
+//        }
+        logout.setOnClickListener {
             val intent: Intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-
+            firebaseAuth.signOut()
         }
     }
 }

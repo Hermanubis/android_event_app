@@ -39,8 +39,7 @@ class LoginActivity : AppCompatActivity() {
 //
         Log.d("MainActivity", "onCreate called!")
         val preferences: SharedPreferences =
-            getSharedPreferences("android-tweets", Context.MODE_PRIVATE)
-//
+            getSharedPreferences("username", Context.MODE_PRIVATE)
 //
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
