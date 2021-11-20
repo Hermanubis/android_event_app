@@ -1,7 +1,5 @@
 package edu.gwu.project2
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +32,9 @@ class eventAdapter(val events: List<event>) : RecyclerView.Adapter<eventAdapter.
         viewHolder.name.text = currEvent.name
         viewHolder.time.text = currEvent.time
         viewHolder.venue.text = currEvent.venue
+        viewHolder.location.text = currEvent.info
         if (currEvent.img.isNotBlank()) {
-            //Picasso.get().setIndicatorsEnabled(true)
+            Picasso.get().setIndicatorsEnabled(true)
 
             Picasso
                 .get()
@@ -55,5 +54,6 @@ class eventAdapter(val events: List<event>) : RecyclerView.Adapter<eventAdapter.
         val thumbnail: ImageView = rootLayout.findViewById(R.id.eventImage)
         val venue: TextView = rootLayout.findViewById(R.id.event_venue)
         val cardView: CardView = rootLayout.findViewById(R.id.eventCard)
+        val location:TextView = rootLayout.findViewById(R.id.event_loc)
     }
 }

@@ -43,20 +43,29 @@ class eventManager {
 
         if (response.isSuccessful && !responseBody.isNullOrBlank()) {
             val json: JSONObject = JSONObject(responseBody)
-            val events: JSONArray = json.getJSONObject("_embedded").getJSONArray("events")
+            val emb = json.getJSONObject("_embedded")
+            val events: JSONArray = emb.getJSONArray("events")
 
             for (i in 0 until events.length()) {
                 val curr: JSONObject = events.getJSONObject(i)
                 val name = curr.getString("name")
-                val time = curr.getJSONObject("dates").getJSONObject("start").getString("localDate")
-                val urlToImage = curr.getJSONArray("images").getJSONObject(0).getString("url")
-                val venue = curr.getJSONArray("product").getJSONObject(0).getString("name")
+                val dates = curr.getJSONObject("dates")
+                val start = dates.getJSONObject("start")
+                val time = start.getString("localDate")
+                val imagesArr = curr.getJSONArray("images")
+                val imagesArr1 = imagesArr.getJSONObject(0)
+                val urlToImage = imagesArr1.getString("url")
+                val emb1 = curr.getJSONObject("_embedded")
+                val venues = emb1.getJSONArray("venues")
+                val venues1 = venues.getJSONObject(0)
+                val location = venues1.getString("name")
+                val city = venues1.getJSONObject("city")
+                val info = city.getString("name")
                 val url = curr.getString("url")
-                val info = curr.getString("info")
-                eventList.add(event(name, time, urlToImage, venue, url, info))
+
+                eventList.add(event(name, time, urlToImage, location, url, info))
             }
         }
-
         return eventList
     }
 }
