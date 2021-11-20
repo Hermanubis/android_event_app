@@ -49,11 +49,11 @@ class eventManager {
                 val curr: JSONObject = events.getJSONObject(i)
                 val name = curr.getString("name")
                 val time = curr.getJSONObject("dates").getJSONObject("start").getString("localDate")
-                val urlToImage = curr.getString("urlToImage")
-                val content = curr.getString("content")
+                val urlToImage = curr.getJSONArray("images").getJSONObject(0).getString("url")
+                val venue = curr.getJSONArray("product").getJSONObject(0).getString("name")
                 val url = curr.getString("url")
                 val info = curr.getString("info")
-                eventList.add(event(name, time, urlToImage, content, url, info))
+                eventList.add(event(name, time, urlToImage, venue, url, info))
             }
         }
 

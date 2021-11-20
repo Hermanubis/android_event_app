@@ -7,6 +7,6 @@ data class event (
     val time: String,
     val img: String,
     val venue: String,
-    val locale: String,
+    val link : String,
     val info: String
     ): Serializable
