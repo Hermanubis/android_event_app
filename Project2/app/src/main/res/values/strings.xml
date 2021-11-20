@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Project2</string>
+    <string name="searchTitle">Find Your Favorite Events</string>
+    <string name="searchButton">Event Search</string>
+    <string name="searchButton1">Venue Search</string>
+    <string name="byLocation">Find Events by Location</string>
+    <string name="mapViewButton">View Map</string>
+    <string name="topEvents">Highlighted Events</string>
+    <string name="eventButton">View By Category</string>
+    <string name="sourceText">Sources</string>
+    <string name="categoryText">Categories</string>
+    <string name="prevButton">PREV</string>
+    <string name="nextButton">NEXT</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="geocoder_no_results">No news results for location!</string>
+    <string name="error_result">Failed to retrieve news!</string>
+    <string name="error_headline">Failed to retrieve headline!</string>
+    <string name="error_Location">Location not found!</string>
+    <string name="error_prevLocation">No previously stored location loaded</string>
+    <string name="error_Location_news">Failed to retrieve local news!</string>
+    <string name="error_source">Failed to retrieve source!</string>
+    <string name="eventAPI">EmgTCUA44nyLLdokdz7kWehyuXMS4kqA</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGVybWFudWJpcyIsImEiOiJja3c1cWljbjIwZXZ4MzJvOHpnMHp3ZGFuIn0.17kE1xt2_5PPSf6i-HnBiw</string>
+</resources>
