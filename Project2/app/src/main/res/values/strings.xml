@@ -9,7 +9,6 @@
     <string name="eventButton">View By Category</string>
     <string name="sourceText">Sources</string>
     <string name="categoryText">Categories</string>
-    <string name="skipButton">SKIP (SEARCH ALL SOURCES)</string>
     <string name="prevButton">PREV</string>
     <string name="nextButton">NEXT</string>
     <string name="title_activity_maps">MapsActivity</string>
@@ -21,4 +20,5 @@
     <string name="error_Location_news">Failed to retrieve local news!</string>
     <string name="error_source">Failed to retrieve source!</string>
     <string name="eventAPI">EmgTCUA44nyLLdokdz7kWehyuXMS4kqA</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGVybWFudWJpcyIsImEiOiJja3c1cWljbjIwZXZ4MzJvOHpnMHp3ZGFuIn0.17kE1xt2_5PPSf6i-HnBiw</string>
 </resources>
