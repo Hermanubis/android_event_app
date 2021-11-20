@@ -54,6 +54,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     //mapbox
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1'
+    implementation 'com.mapbox.maps:android:10.1.0'
     //implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
 }

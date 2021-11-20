@@ -14,31 +14,21 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
-import com.mapbox.mapboxsdk.*
-
 import com.google.android.material.button.MaterialButton
-import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.maps.MapView
+import com.mapbox.maps.Style
 import org.jetbrains.anko.doAsync
 
-
+var mapView: MapView? = null
 
 class mapboxActivity : AppCompatActivity() {
 
-    private lateinit var mapView: MapView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
-
+        setTitle("Map")
         setContentView(R.layout.activity_mapbox)
-        mapView = findViewById (R.id.mapView)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync{ mapboxMap ->
-            mapboxMap.setStyle(Style.MAPBOX_STREETS){ style ->
-            }
-        }
+        mapView = findViewById(R.id.mapView)
+        mapView?.getMapboxMap()?.loadStyleUri(Style.MAPBOX_STREETS)
     }
 
     override fun onStart() {
