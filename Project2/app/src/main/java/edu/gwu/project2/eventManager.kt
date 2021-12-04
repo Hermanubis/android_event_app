@@ -68,4 +68,37 @@ class eventManager {
         }
         return eventList
     }
+
+    fun retrieveWeather(weatherAPI: String, city: String): weather {
+        var myweather : weather = weather("", "", "", "", "")
+
+        // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
+        // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
+
+        var request: Request =
+            Request.Builder()
+                .url("https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${city},us&appid=${weatherAPI}")
+                .header("Authorization", "$weatherAPI")
+                .build()
+
+
+        val response: Response = okHttpClient.newCall(request).execute()
+        val responseBody: String? = response.body?.string()
+
+        if (response.isSuccessful && !responseBody.isNullOrBlank()) {
+            val json: JSONObject = JSONObject(responseBody)
+            val weather: JSONArray = json.getJSONArray("weather")
+            val temp: JSONObject = json.getJSONObject("main")
+            val weatherobject : JSONObject = weather.getJSONObject(0)
+
+            val city_name = json.getString("name")
+            val condition = weatherobject.getString("description")
+            val img = weatherobject.getString("icon")
+            val low = temp.getString("temp_min")
+            val high = temp.getString("temp_max")
+
+            myweather = weather(city_name, condition, low, high, img)
+        }
+        return myweather
+    }
 }
