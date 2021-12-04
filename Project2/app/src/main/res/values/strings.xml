@@ -22,4 +22,11 @@
     <string name="eventAPI">EmgTCUA44nyLLdokdz7kWehyuXMS4kqA</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiaGVybWFudWJpcyIsImEiOiJja3c1cWljbjIwZXZ4MzJvOHpnMHp3ZGFuIn0.17kE1xt2_5PPSf6i-HnBiw</string>
     <string name="weatherAPI">e46d51895db2db351abde723aa9d9b25</string>
+    <string-array name="list">
+        <item>Sort By name(ascending)</item>
+        <item>Sort By name(descending)</item>
+        <item>Sort By Relevance(ascending)</item>
+        <item>Random</item>
+        <item>Clear Selection</item>
+    </string-array>
 </resources>

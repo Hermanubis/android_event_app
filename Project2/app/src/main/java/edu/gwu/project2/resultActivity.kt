@@ -3,6 +3,7 @@ package edu.gwu.project2
 import android.content.Intent
 import android.os.Bundle
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,8 @@ class resultActivity : AppCompatActivity() {
         // Retrieve data from the Intent that launched this screen
         val intent: Intent = getIntent()
         val searchTerm: String = intent.getStringExtra("TERM")!!
+        val spinner = findViewById<Spinner>(R.id.spinner)
+        val list = resources.getStringArray(R.array.list)
 
         if(!searchTerm.isNullOrEmpty()) {
 
@@ -77,31 +80,48 @@ class resultActivity : AppCompatActivity() {
                     }
                 }
             }
-            doAsync {
+            if(spinner !=null){
+                val adapter = ArrayAdapter(this,
+                    android.R.layout.simple_spinner_item, list)
+                spinner.adapter = adapter
+//                val SavedCat = preferences.getInt("SrcCat",-1)
+//                spinner.setSelection(SavedCat)
+                spinner.onItemSelectedListener = object :
+                    AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>,
+                                                view: View, position: Int, id: Long) {
+                        val sort = spinner.selectedItem.toString()
+                        doAsync {
+                            val events: List<event> = try {
+                                eventManager.retrieveEvents(eventAPI, searchTerm,sort)
+                            } catch(exception: Exception) {
+                                Log.e("resultActivity", "Retrieving news failed!", exception)
+                                listOf<event>()
+                            }
 
-//                    var articles: List<news> = eventManager.retrieveAllNews(eventAPI, searchTerm)
-                val events: List<event> = try {
-                    eventManager.retrieveEvents(eventAPI, searchTerm)
-                } catch(exception: Exception) {
-//                        Log.e("resultActivity", "Retrieving news failed!", exception)
-                    listOf<event>()
-                }
-
-                runOnUiThread {
-                    if(events.isNotEmpty()){
-                        adapter = eventAdapter(events)
-                        recyclerView.adapter = adapter
-                        recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
+                            runOnUiThread {
+                                if(events.isNotEmpty()){
+                                    val adapter = eventAdapter(events)
+                                    recyclerView.adapter = adapter
+                                    recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
+                                }
+                                else{
+                                    Toast.makeText(
+                                        this@resultActivity,
+                                        getString(R.string.error_result),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        }
                     }
-                    else{
-                        Toast.makeText(
-                            this@resultActivity,
-                            getString(R.string.error_result),
-                            Toast.LENGTH_LONG
-                        ).show()
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        TODO("Not yet implemented")
                     }
                 }
             }
+
 
         }
         else{

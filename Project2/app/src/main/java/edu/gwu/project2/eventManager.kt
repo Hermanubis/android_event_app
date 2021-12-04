@@ -25,15 +25,31 @@ class eventManager {
         okHttpClient = okHttpClientBuilder.build()
     }
 
-    fun retrieveEvents(eventAPI: String, term: String): List<event> {
+    fun retrieveEvents(eventAPI: String, term: String,sort: String): List<event> {
         val eventList: MutableList<event> = mutableListOf()
 
         // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
         // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
 
+        var Category = "random"
+        // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
+        // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
+
+        if(sort == "Sort By name(ascending)"){
+            Category = "name,asc"
+        }else if(sort == "Sort By name(descending)"){
+            Category = "name,desc"
+        }else if(sort == "Sort By Relevance(ascending)"){
+            Category = "relevance,asc"
+        }else if(sort == "Random"){
+            Category = "random"
+        }else{
+            Category = "relevance,desc"
+        }
+
         var request: Request =
             Request.Builder()
-                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&countryCode=US&apikey=$eventAPI")
+                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&sort=${Category}&countryCode=US&apikey=$eventAPI")
                 .header("Authorization", "$eventAPI")
                 .build()
 
@@ -52,9 +68,10 @@ class eventManager {
                 val dates = curr.getJSONObject("dates")
                 val start = dates.getJSONObject("start")
                 val time = start.getString("localDate")
-                val imagesArr = curr.getJSONArray("images")
-                val imagesArr1 = imagesArr.getJSONObject(0)
-                val urlToImage = imagesArr1.getString("url")
+//                val imagesArr = curr.getJSONArray("images")
+//                val imagesArr1 = imagesArr.getJSONObject(0)
+//                val urlToImage = imagesArr1.getString("url")
+                val urlToImage = "https://helenkellerfestival.com/site/wp-content/uploads/2018/06/ticket.jpg"
                 val emb1 = curr.getJSONObject("_embedded")
                 val venues = emb1.getJSONArray("venues")
                 val venues1 = venues.getJSONObject(0)
