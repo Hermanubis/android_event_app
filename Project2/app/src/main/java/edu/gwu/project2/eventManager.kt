@@ -88,7 +88,7 @@ class eventManager {
         if (response.isSuccessful && !responseBody.isNullOrBlank()) {
             val json: JSONObject = JSONObject(responseBody)
             val weather: JSONArray = json.getJSONArray("weather")
-            val temp: JSONObject = JSONObject("main")
+            val temp: JSONObject = json.getJSONObject("main")
             val weatherobject : JSONObject = weather.getJSONObject(0)
 
             val city_name = json.getString("name")

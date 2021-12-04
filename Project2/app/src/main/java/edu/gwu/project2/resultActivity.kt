@@ -58,9 +58,10 @@ class resultActivity : AppCompatActivity() {
                 runOnUiThread {
                     if(weather != check){
                        if(weather.img.isNotBlank()) {
+                           var link = "https://openweathermap.org/img/wn/${weather.img}@2x.png"
                            Picasso
                                .get()
-                               .load(weather.img)
+                               .load(link)
                                .into(weatherImage)
                        }
                        city_name.setText(weather.city)
