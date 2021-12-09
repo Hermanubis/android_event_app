@@ -19,6 +19,7 @@ import com.google.firebase.auth.*
 class MainActivity : AppCompatActivity() {
     private lateinit var searchbar: SearchView
     private lateinit var search: Button
+    private lateinit var venuesearch: Button
     private lateinit var mapButton: Button
     private lateinit var viewEvents: Button
     private lateinit var logout:Button
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         searchbar = findViewById(R.id.searchbar)
         search = findViewById(R.id.search)
+        venuesearch = findViewById(R.id.venue)
         mapButton = findViewById(R.id.mapButton)
         viewEvents = findViewById(R.id.viewEvents)
         logout = findViewById(R.id.logout)
@@ -78,6 +80,16 @@ class MainActivity : AppCompatActivity() {
             editor.putString("SEARCHTERM", searchbar.query.toString()).apply()
             val intent: Intent = Intent(this, resultActivity::class.java)
             intent.putExtra("TERM", searchbar.query.toString())
+            intent.putExtra("type","keyword")
+            startActivity(intent)
+        }
+
+        venuesearch.setOnClickListener {
+            val editor = preferences.edit()
+            editor.putString("SEARCHTERM", searchbar.query.toString()).apply()
+            val intent: Intent = Intent(this, resultActivity::class.java)
+            intent.putExtra("TERM", searchbar.query.toString())
+            intent.putExtra("type","venue")
             startActivity(intent)
         }
 

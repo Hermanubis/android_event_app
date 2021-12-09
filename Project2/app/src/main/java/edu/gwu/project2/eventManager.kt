@@ -28,12 +28,7 @@ class eventManager {
     fun retrieveEvents(eventAPI: String, term: String,sort: String): List<event> {
         val eventList: MutableList<event> = mutableListOf()
 
-        // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
-        // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
-
         var Category = "random"
-        // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
-        // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
 
         if(sort == "Sort By name(ascending)"){
             Category = "name,asc"
@@ -77,6 +72,68 @@ class eventManager {
                 val venues1 = venues.getJSONObject(0)
                 val location = venues1.getString("name")
                 val city = venues1.getJSONObject("city")
+                val info = city.getString("name")
+                val url = curr.getString("url")
+
+                eventList.add(event(name, time, urlToImage, location, url, info))
+            }
+        }
+        return eventList
+    }
+    fun retrieveVenueEvents(eventAPI: String, term: String,sort: String): List<event> {
+        val eventList: MutableList<event> = mutableListOf()
+        var Category = "random"
+
+        if(sort == "Sort By name(ascending)"){
+            Category = "name,asc"
+        }else if(sort == "Sort By name(descending)"){
+            Category = "name,desc"
+        }else if(sort == "Sort By Relevance(ascending)"){
+            Category = "relevance,asc"
+        }else if(sort == "Random"){
+            Category = "random"
+        }else{
+            Category = "relevance,desc"
+        }
+
+        var request: Request =
+            Request.Builder()
+                .url("https://app.ticketmaster.com/discovery/v2/venues.json?keyword=${term}&sort=${Category}&apikey=$eventAPI")
+                .header("Authorization", "$eventAPI")
+                .build()
+
+
+        val response: Response = okHttpClient.newCall(request).execute()
+        val responseBody: String? = response.body?.string()
+
+        if (response.isSuccessful && !responseBody.isNullOrBlank()) {
+            val json: JSONObject = JSONObject(responseBody)
+            val emb = json.getJSONObject("_embedded")
+            val events: JSONArray = emb.getJSONArray("venues")
+
+            for (i in 0 until events.length()) {
+                val curr: JSONObject = events.getJSONObject(i)
+                val name = curr.getString("name")
+                var urlToImage = "https://image.shutterstock.com/image-illustration/not-available-red-rubber-stamp-260nw-586791809.jpg"
+//                val dates = curr.getJSONObject("dates")
+//                val start = dates.getJSONObject("start")
+//                val time = start.getString("localDate")
+                val time = "Timezone:"+curr.getString("timezone")
+//                val imagesArr = curr.getJSONArray("images")
+//                val imagesArr1 = imagesArr.getJSONObject(0)
+//                val urlToImage = imagesArr1.getString("url")
+                val upcoming = curr.getJSONObject("upcomingEvents")
+                val upcoming2 = upcoming.getString("_total")
+                if(upcoming2 != "0" ){
+                    urlToImage = "https://www.gannett-cdn.com/presto/2021/06/28/NCHE/8d5600fa-58e1-46d8-abaf-9c692bea625f-_Upcoming-events-concept-.jpg?width=660&height=411&fit=crop&format=pjpg&auto=webp"
+                }
+
+//                val emb1 = curr.getJSONObject("_embedded")
+//                val venues = emb1.getJSONArray("venues")
+//                val venues1 = venues.getJSONObject(0)
+//                val location = venues1.getString("name")
+                val city = curr.getJSONObject("city")
+                val location = city.getString("name")
                 val info = city.getString("name")
                 val url = curr.getString("url")
 

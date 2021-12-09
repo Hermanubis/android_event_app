@@ -23,6 +23,17 @@
     <string name="eventAPI">EmgTCUA44nyLLdokdz7kWehyuXMS4kqA</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiaGVybWFudWJpcyIsImEiOiJja3c1cWljbjIwZXZ4MzJvOHpnMHp3ZGFuIn0.17kE1xt2_5PPSf6i-HnBiw</string>
     <string name="weatherAPI">e46d51895db2db351abde723aa9d9b25</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="signup">Sign Up</string>
+    <string name="Login">Login</string>
+    <string name="password2">Confirm Password</string>
+    <string name="Back">Back To Login</string>
+    <string name="Logout">Logout</string>
+    <string name="results">Results for</string>
+    <string name="Home_title">Welcome to Event Find</string>
+    <string name="not_found">No Search Term Found</string>
     <string-array name="list">
         <item>Sort By name(ascending)</item>
         <item>Sort By name(descending)</item>

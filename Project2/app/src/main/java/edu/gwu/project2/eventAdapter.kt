@@ -1,5 +1,7 @@
 package edu.gwu.project2
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import java.net.URI
 
 class eventAdapter(val events: List<event>) : RecyclerView.Adapter<eventAdapter.ViewHolder>() {
     //get number of rows
@@ -41,10 +44,10 @@ class eventAdapter(val events: List<event>) : RecyclerView.Adapter<eventAdapter.
                 .load(currEvent.img)
                 .into(viewHolder.thumbnail)
         }
+        //onclick website
         viewHolder.cardView.setOnClickListener {
-//            val intent: Intent = Intent(Intent.ACTION_VIEW)
-//            intent.data = Uri.parse(currEvent.link)
-//            it.context.startActivity(intent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(currEvent.link))
+            it.context.startActivity(intent)
         }
     }
 

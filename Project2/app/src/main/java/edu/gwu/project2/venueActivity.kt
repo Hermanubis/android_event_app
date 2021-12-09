@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.jetbrains.anko.doAsync
 import org.w3c.dom.Text
 
-class resultActivity : AppCompatActivity() {
+class venueActivity : AppCompatActivity() {
 
     private lateinit var adapter: eventAdapter
     private lateinit var recyclerView: RecyclerView
@@ -41,7 +41,6 @@ class resultActivity : AppCompatActivity() {
         // Retrieve data from the Intent that launched this screen
         val intent: Intent = getIntent()
         val searchTerm: String = intent.getStringExtra("TERM")!!
-        val Type: String = intent.getStringExtra("type")!!
         val spinner = findViewById<Spinner>(R.id.spinner)
         val list = resources.getStringArray(R.array.list)
 
@@ -60,20 +59,20 @@ class resultActivity : AppCompatActivity() {
                 val check =  weather("", "", "", "", "")
                 runOnUiThread {
                     if(weather != check){
-                       if(weather.img.isNotBlank()) {
-                           var link = "https://openweathermap.org/img/wn/${weather.img}@2x.png"
-                           Picasso
-                               .get()
-                               .load(link)
-                               .into(weatherImage)
-                       }
-                        city_name.text = weather.city
-                        condition.text = weather.condition
-                        temperature.text = "Temperature: ${weather.low}°F - ${weather.high}°F"
+                        if(weather.img.isNotBlank()) {
+                            var link = "https://openweathermap.org/img/wn/${weather.img}@2x.png"
+                            Picasso
+                                .get()
+                                .load(link)
+                                .into(weatherImage)
+                        }
+                        city_name.setText(weather.city)
+                        condition.setText(weather.condition)
+                        temperature.setText("Temperature: ${weather.low}°F - ${weather.high}°F")
                     }
                     else{
                         Toast.makeText(
-                            this@resultActivity,
+                            this@venueActivity,
                             getString(R.string.error_result),
                             Toast.LENGTH_LONG
                         ).show()
@@ -91,56 +90,29 @@ class resultActivity : AppCompatActivity() {
                     override fun onItemSelected(parent: AdapterView<*>,
                                                 view: View, position: Int, id: Long) {
                         val sort = spinner.selectedItem.toString()
-                        if (Type == "keyword"){
-                            doAsync {
-                                val events: List<event> = try {
-                                    eventManager.retrieveEvents(eventAPI, searchTerm,sort)
-                                } catch(exception: Exception) {
-                                    Log.e("resultActivity", "Retrieving news failed!", exception)
-                                    listOf<event>()
-                                }
-
-                                runOnUiThread {
-                                    if(events.isNotEmpty()){
-                                        val adapter = eventAdapter(events)
-                                        recyclerView.adapter = adapter
-                                        recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
-                                    }
-                                    else{
-                                        Toast.makeText(
-                                            this@resultActivity,
-                                            getString(R.string.error_result),
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                                }
+                        doAsync {
+                            val events: List<event> = try {
+                                eventManager.retrieveEvents(eventAPI, searchTerm,sort)
+                            } catch(exception: Exception) {
+                                Log.e("resultActivity", "Retrieving news failed!", exception)
+                                listOf<event>()
                             }
-                        }else if(Type == "venue"){
-                            doAsync {
-                                val events: List<event> = try {
-                                    eventManager.retrieveVenueEvents(eventAPI, searchTerm,sort)
-                                } catch(exception: Exception) {
-                                    Log.e("resultActivity", "Retrieving news failed!", exception)
-                                    listOf<event>()
-                                }
 
-                                runOnUiThread {
-                                    if(events.isNotEmpty()){
-                                        val adapter = eventAdapter(events)
-                                        recyclerView.adapter = adapter
-                                        recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
-                                    }
-                                    else{
-                                        Toast.makeText(
-                                            this@resultActivity,
-                                            getString(R.string.error_result),
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
+                            runOnUiThread {
+                                if(events.isNotEmpty()){
+                                    val adapter = eventAdapter(events)
+                                    recyclerView.adapter = adapter
+                                    recyclerView.layoutManager = LinearLayoutManager(this@venueActivity)
+                                }
+                                else{
+                                    Toast.makeText(
+                                        this@venueActivity,
+                                        getString(R.string.error_result),
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                             }
                         }
-
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
