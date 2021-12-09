@@ -31,6 +31,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".resultActivity" />
         <activity android:name=".mapboxActivity" />
+        <activity android:name=".SignupActivity" />
     </application>
 
 </manifest>

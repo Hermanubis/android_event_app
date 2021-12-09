@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Project2</string>
+    <string name="Signup">Sign Up to Find Events</string>
     <string name="searchTitle">Find Your Favorite Events</string>
     <string name="searchButton">Event Search</string>
     <string name="searchButton1">Venue Search</string>
