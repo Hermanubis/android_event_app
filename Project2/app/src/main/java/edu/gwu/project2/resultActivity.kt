@@ -67,7 +67,7 @@ class resultActivity : AppCompatActivity() {
                                .load(link)
                                .into(weatherImage)
                        }
-                        city_name.text = weather.city
+                        city_name.text = weather.local
                         condition.text = weather.condition
                         temperature.text = "Temperature: ${weather.low}°F - ${weather.high}°F"
                     }

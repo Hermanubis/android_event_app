@@ -4,8 +4,8 @@
     <string name="searchTitle">查找你最喜欢的活动</string>
     <string name="searchButton">搜索活动</string>
     <string name="searchButton1">场馆搜索</string>
-    <string name="byLocation">根据地点查找</string>
-    <string name="mapViewButton">在地图中查看</string>
+    <string name="byLocation">一周天气及气象台预警</string>
+    <string name="mapViewButton">天气查看</string>
     <string name="topEvents">高亮显示活动</string>
     <string name="eventButton">根据分类查看</string>
     <string name="sourceText">来源</string>
@@ -41,4 +41,7 @@
         <item>随机</item>
         <item>重置</item>
     </string-array>
+    <string name="alert">气象台预警</string>
+    <string name="localweather">华盛顿天气</string>
+
 </resources>

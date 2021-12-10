@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mapButton.setOnClickListener {
-            val intent: Intent = Intent(this, mapboxActivity::class.java)
+            val intent: Intent = Intent(this, dailyWeatherActivity::class.java)
             startActivity(intent)
         }
 //        viewEvents.setOnClickListener {

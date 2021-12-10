@@ -44,7 +44,7 @@ class eventManager {
 
         var request: Request =
             Request.Builder()
-                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&sort=${Category}&countryCode=US&apikey=$eventAPI")
+                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&sort=${Category}&endDateTime=2022-04-25T14:00:00Z&apikey=$eventAPI")
                 .header("Authorization", "$eventAPI")
                 .build()
 
@@ -172,6 +172,41 @@ class eventManager {
             val high = temp.getString("temp_max")
 
             myweather = weather(city_name, condition, low, high, img)
+        }
+        return myweather
+    }
+
+    fun retrieveFutureWeather(weatherAPI: String): List<weather> {
+        var myweather : MutableList<weather> = mutableListOf()
+
+        // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
+        // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
+
+        var request: Request =
+            Request.Builder()
+                .url("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=38.9072&lon=-77.0506&exclude=hourly,minutely&appid=${weatherAPI}")
+                .header("Authorization", "$weatherAPI")
+                .build()
+
+
+        val response: Response = okHttpClient.newCall(request).execute()
+        val responseBody: String? = response.body?.string()
+
+        if (response.isSuccessful && !responseBody.isNullOrBlank()) {
+            val json: JSONObject = JSONObject(responseBody)
+            val weather: JSONArray = json.getJSONArray("daily")
+            for (i in 0 until weather.length()) {
+                val curr: JSONObject = weather.getJSONObject(i)
+                val date = curr.getString("dt")
+                val temp: JSONObject = curr.getJSONObject("temp")
+                val condition0 = curr.getJSONArray("weather")
+                val condition1 = condition0.getJSONObject(0)
+                val condition = condition1.getString("description")
+                val img = condition1.getString("icon")
+                val low = temp.getString("min")
+                val high = temp.getString("max")
+                myweather.add(weather(date, condition, low, high, img))
+            }
         }
         return myweather
     }

@@ -4,8 +4,8 @@
     <string name="searchTitle">Find Your Favorite Events</string>
     <string name="searchButton">Event Search</string>
     <string name="searchButton1">Venue Search</string>
-    <string name="byLocation">Find Events by Location</string>
-    <string name="mapViewButton">View Map</string>
+    <string name="byLocation">7 Day Weather and Weather Alert</string>
+    <string name="mapViewButton">View Weather</string>
     <string name="topEvents">Highlighted Events</string>
     <string name="eventButton">View By Category</string>
     <string name="sourceText">Sources</string>
@@ -41,4 +41,6 @@
         <item>Random</item>
         <item>Clear Selection</item>
     </string-array>
+    <string name="alert">View Alerts</string>
+    <string name="localweather">Washington Weather</string>
 </resources>

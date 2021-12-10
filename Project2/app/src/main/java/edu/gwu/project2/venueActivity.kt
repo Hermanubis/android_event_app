@@ -66,7 +66,7 @@ class venueActivity : AppCompatActivity() {
                                 .load(link)
                                 .into(weatherImage)
                         }
-                        city_name.setText(weather.city)
+                        city_name.setText(weather.local)
                         condition.setText(weather.condition)
                         temperature.setText("Temperature: ${weather.low}°F - ${weather.high}°F")
                     }
