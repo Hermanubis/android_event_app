@@ -35,6 +35,7 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".venueActivity" />
         <activity android:name=".dailyWeatherActivity" />
+        <activity android:name=".alertActivity" />
     </application>
 
 </manifest>

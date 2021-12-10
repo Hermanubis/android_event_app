@@ -57,9 +57,9 @@ class resultActivity : AppCompatActivity() {
 
 //                    var articles: List<news> = eventManager.retrieveAllNews(eventAPI, searchTerm)
                 val weather: weather = eventManager.retrieveWeather(weatherAPI, city)
-                val check =  weather("", "", "", "", "")
+
                 runOnUiThread {
-                    if(weather != check){
+                    if(weather.condition.isNotEmpty()){
                        if(weather.img.isNotBlank()) {
                            var link = "https://openweathermap.org/img/wn/${weather.img}@2x.png"
                            Picasso

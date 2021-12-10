@@ -210,4 +210,30 @@ class eventManager {
         }
         return myweather
     }
+
+    fun retrieveAlert(weatherAPI: String): alert {
+        var myAlert : alert = alert("", "")
+
+        // Unlike normal API Keys (like Google Maps and News API) Twitter uses something slightly different,
+        // so the "apiKey" here isn't really an API Key - we'll see in Lecture 7.
+
+        var request: Request =
+            Request.Builder()
+                .url("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=38.9072&lon=-77.0506&exclude=hourly,minutely&appid=${weatherAPI}")
+                .header("Authorization", "$weatherAPI")
+                .build()
+
+        val response: Response = okHttpClient.newCall(request).execute()
+        val responseBody: String? = response.body?.string()
+
+        if (response.isSuccessful && !responseBody.isNullOrBlank()) {
+            val json: JSONObject = JSONObject(responseBody)
+            val alert: JSONObject = json.getJSONArray("alerts").getJSONObject(0)
+            val type = alert.getString("event")
+            val description = alert.getString("description")
+
+            myAlert = alert(type, description)
+        }
+        return myAlert
+    }
 }

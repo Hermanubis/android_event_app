@@ -16,7 +16,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.jetbrains.anko.doAsync
-import org.w3c.dom.Text
 
 class dailyWeatherActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -53,6 +52,11 @@ class dailyWeatherActivity : AppCompatActivity() {
                     ).show()
                 }
             }
+        }
+
+        alert.setOnClickListener{
+            val intent: Intent = Intent(this, alertActivity::class.java)
+            startActivity(intent)
         }
 
     }

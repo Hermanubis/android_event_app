@@ -39,8 +39,11 @@
         <item>Sort By name(descending)</item>
         <item>Sort By Relevance(ascending)</item>
         <item>Random</item>
-        <item>Clear Selection</item>
+        <item>Sort By Relevance(descending)</item>
     </string-array>
     <string name="alert">View Alerts</string>
     <string name="localweather">Washington Weather</string>
+    <string name="alertTitle">Weather Alert</string>
+    <string name="alertError">No Active Alert</string>
+
 </resources>

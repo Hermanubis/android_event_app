@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         val savedSearch = preferences.getString("SEARCHTERM", "")
         val enableButton: Boolean = savedSearch!!.isNotBlank()
         search.isEnabled = enableButton
+        venuesearch.isEnabled = enableButton
         searchbar.setQuery(savedSearch, false)
 
         searchbar.setOnSearchClickListener {
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("SEARCHTERM", term1).apply()
                 val enableButton: Boolean = searchbar.query.isNotBlank()
                 search.isEnabled = enableButton
+                venuesearch.isEnabled = enableButton
                 return enableButton
             }
         })
