@@ -34,6 +34,7 @@
         <activity android:name=".mapboxActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".venueActivity" />
+        <activity android:name=".dailyWeatherActivity" />
     </application>
 
 </manifest>
