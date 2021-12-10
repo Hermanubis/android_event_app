@@ -96,7 +96,7 @@ class resultActivity : AppCompatActivity() {
                                 val events: List<event> = try {
                                     eventManager.retrieveEvents(eventAPI, searchTerm,sort)
                                 } catch(exception: Exception) {
-                                    Log.e("resultActivity", "Retrieving news failed!", exception)
+                                    Log.e("resultActivity", getString(R.string.error_result), exception)
                                     listOf<event>()
                                 }
 
@@ -120,7 +120,7 @@ class resultActivity : AppCompatActivity() {
                                 val events: List<event> = try {
                                     eventManager.retrieveVenueEvents(eventAPI, searchTerm,sort)
                                 } catch(exception: Exception) {
-                                    Log.e("resultActivity", "Retrieving news failed!", exception)
+                                    Log.e("resultActivity", getString(R.string.error_result), exception)
                                     listOf<event>()
                                 }
 

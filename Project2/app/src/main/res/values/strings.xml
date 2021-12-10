@@ -13,13 +13,13 @@
     <string name="prevButton">PREV</string>
     <string name="nextButton">NEXT</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="geocoder_no_results">No news results for location!</string>
-    <string name="error_result">Failed to retrieve news!</string>
-    <string name="error_headline">Failed to retrieve headline!</string>
+    <string name="geocoder_no_results">No results for location!</string>
+    <string name="error_result">Failed to retrieve information!</string>
+    <string name="error_headline">Failed to retrieve information!</string>
     <string name="error_Location">Location not found!</string>
     <string name="error_prevLocation">No previously stored location loaded</string>
     <string name="error_Location_news">Failed to retrieve local news!</string>
-    <string name="error_source">Failed to retrieve source!</string>
+    <string name="error_source">Failed to retrieve infomation!</string>
     <string name="eventAPI">EmgTCUA44nyLLdokdz7kWehyuXMS4kqA</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiaGVybWFudWJpcyIsImEiOiJja3c1cWljbjIwZXZ4MzJvOHpnMHp3ZGFuIn0.17kE1xt2_5PPSf6i-HnBiw</string>
     <string name="weatherAPI">e46d51895db2db351abde723aa9d9b25</string>
