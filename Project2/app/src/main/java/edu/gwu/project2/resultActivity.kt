@@ -41,6 +41,7 @@ class resultActivity : AppCompatActivity() {
         // Retrieve data from the Intent that launched this screen
         val intent: Intent = getIntent()
         val searchTerm: String = intent.getStringExtra("TERM")!!
+        val Type: String = intent.getStringExtra("type")!!
         val spinner = findViewById<Spinner>(R.id.spinner)
         val list = resources.getStringArray(R.array.list)
 
@@ -50,16 +51,15 @@ class resultActivity : AppCompatActivity() {
             val eventAPI = getString(R.string.eventAPI)
             val weatherAPI = getString((R.string.weatherAPI))
             val city = "washington"
-
-            val title = "Results for ${searchTerm}"
+            val title = getString(R.string.results)+ " " + searchTerm
             setTitle(title)
             doAsync {
 
 //                    var articles: List<news> = eventManager.retrieveAllNews(eventAPI, searchTerm)
                 val weather: weather = eventManager.retrieveWeather(weatherAPI, city)
-                val check =  weather("", "", "", "", "")
+
                 runOnUiThread {
-                    if(weather != check){
+                    if(weather.condition.isNotEmpty()){
                        if(weather.img.isNotBlank()) {
                            var link = "https://openweathermap.org/img/wn/${weather.img}@2x.png"
                            Picasso
@@ -67,9 +67,9 @@ class resultActivity : AppCompatActivity() {
                                .load(link)
                                .into(weatherImage)
                        }
-                       city_name.setText(weather.city)
-                       condition.setText(weather.condition)
-                       temperature.setText("Temperature: ${weather.low}°F - ${weather.high}°F")
+                        city_name.text = weather.local
+                        condition.text = weather.condition
+                        temperature.text = "Temperature: ${weather.low}°F - ${weather.high}°F"
                     }
                     else{
                         Toast.makeText(
@@ -80,44 +80,82 @@ class resultActivity : AppCompatActivity() {
                     }
                 }
             }
-            if(spinner !=null){
-                val adapter = ArrayAdapter(this,
-                    android.R.layout.simple_spinner_item, list)
-                spinner.adapter = adapter
+            if (Type == "keyword") {
+                if (spinner != null) {
+                    val adapter = ArrayAdapter(
+                        this,
+                        android.R.layout.simple_spinner_item, list
+                    )
+                    spinner.adapter = adapter
 //                val SavedCat = preferences.getInt("SrcCat",-1)
 //                spinner.setSelection(SavedCat)
-                spinner.onItemSelectedListener = object :
-                    AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>,
-                                                view: View, position: Int, id: Long) {
-                        val sort = spinner.selectedItem.toString()
-                        doAsync {
-                            val events: List<event> = try {
-                                eventManager.retrieveEvents(eventAPI, searchTerm,sort)
-                            } catch(exception: Exception) {
-                                Log.e("resultActivity", "Retrieving news failed!", exception)
-                                listOf<event>()
+                    spinner.onItemSelectedListener = object :
+                        AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View, position: Int, id: Long
+                        ) {
+                            val sort = spinner.selectedItem.toString()
+
+                            doAsync {
+                                val events: List<event> = try {
+                                    eventManager.retrieveEvents(eventAPI, searchTerm, sort)
+                                } catch (exception: Exception) {
+                                    Log.e(
+                                        "resultActivity",
+                                        getString(R.string.error_result),
+                                        exception
+                                    )
+                                    listOf<event>()
+                                }
+
+                                runOnUiThread {
+                                    if (events.isNotEmpty()) {
+                                        val adapter = eventAdapter(events)
+                                        recyclerView.adapter = adapter
+                                        recyclerView.layoutManager =
+                                            LinearLayoutManager(this@resultActivity)
+                                    } else {
+                                        Toast.makeText(
+                                            this@resultActivity,
+                                            getString(R.string.error_result),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
                             }
 
-                            runOnUiThread {
-                                if(events.isNotEmpty()){
-                                    val adapter = eventAdapter(events)
-                                    recyclerView.adapter = adapter
-                                    recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
-                                }
-                                else{
-                                    Toast.makeText(
-                                        this@resultActivity,
-                                        getString(R.string.error_result),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                            }
+
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                            TODO("Not yet implemented")
                         }
                     }
+                }
+            }else if(Type == "venue"){
+                spinner.visibility = View.INVISIBLE
+                doAsync {
+                    val events: List<event> = try {
+                        eventManager.retrieveVenueEvents(eventAPI, searchTerm)
+                    } catch(exception: Exception) {
+                        Log.e("resultActivity", getString(R.string.error_result), exception)
+                        listOf<event>()
+                    }
 
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-                        TODO("Not yet implemented")
+                    runOnUiThread {
+                        if(events.isNotEmpty()){
+                            val adapter = eventAdapter(events)
+                            recyclerView.adapter = adapter
+                            recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
+                        }
+                        else{
+                            Toast.makeText(
+                                this@resultActivity,
+                                getString(R.string.error_result),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
             }
@@ -125,7 +163,7 @@ class resultActivity : AppCompatActivity() {
 
         }
         else{
-            setTitle("No Search Term Found")
+            title = getString(R.string.not_found)
         }
     }
 }

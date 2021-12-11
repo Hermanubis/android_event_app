@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.gwu.project2">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,7 +22,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="Welcome to Event Find">
+            android:label="@string/Home_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,9 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".resultActivity" />
-        <activity android:name=".mapboxActivity" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".dailyWeatherActivity" />
+        <activity android:name=".alertActivity" />
     </application>
 
 </manifest>

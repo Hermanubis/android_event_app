@@ -19,8 +19,8 @@ import com.google.firebase.auth.*
 class MainActivity : AppCompatActivity() {
     private lateinit var searchbar: SearchView
     private lateinit var search: Button
+    private lateinit var venuesearch: Button
     private lateinit var mapButton: Button
-    private lateinit var viewEvents: Button
     private lateinit var logout:Button
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -33,15 +33,18 @@ class MainActivity : AppCompatActivity() {
 
         searchbar = findViewById(R.id.searchbar)
         search = findViewById(R.id.search)
+        venuesearch = findViewById(R.id.venue)
         mapButton = findViewById(R.id.mapButton)
-        viewEvents = findViewById(R.id.viewEvents)
         logout = findViewById(R.id.logout)
+
+        setTitle(getString(R.string.Home_title))
 
         search.isEnabled = false
 
         val savedSearch = preferences.getString("SEARCHTERM", "")
         val enableButton: Boolean = savedSearch!!.isNotBlank()
         search.isEnabled = enableButton
+        venuesearch.isEnabled = enableButton
         searchbar.setQuery(savedSearch, false)
 
         searchbar.setOnSearchClickListener {
@@ -69,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("SEARCHTERM", term1).apply()
                 val enableButton: Boolean = searchbar.query.isNotBlank()
                 search.isEnabled = enableButton
+                venuesearch.isEnabled = enableButton
                 return enableButton
             }
         })
@@ -78,11 +82,21 @@ class MainActivity : AppCompatActivity() {
             editor.putString("SEARCHTERM", searchbar.query.toString()).apply()
             val intent: Intent = Intent(this, resultActivity::class.java)
             intent.putExtra("TERM", searchbar.query.toString())
+            intent.putExtra("type","keyword")
+            startActivity(intent)
+        }
+
+        venuesearch.setOnClickListener {
+            val editor = preferences.edit()
+            editor.putString("SEARCHTERM", searchbar.query.toString()).apply()
+            val intent: Intent = Intent(this, resultActivity::class.java)
+            intent.putExtra("TERM", searchbar.query.toString())
+            intent.putExtra("type","venue")
             startActivity(intent)
         }
 
         mapButton.setOnClickListener {
-            val intent: Intent = Intent(this, mapboxActivity::class.java)
+            val intent: Intent = Intent(this, dailyWeatherActivity::class.java)
             startActivity(intent)
         }
 //        viewEvents.setOnClickListener {

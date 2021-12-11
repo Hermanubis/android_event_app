@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">项目2</string>
+    <string name="Signup">新用户注册</string>
+    <string name="searchTitle">查找你最喜欢的活动</string>
+    <string name="searchButton">搜索活动</string>
+    <string name="searchButton1">场馆搜索</string>
+    <string name="byLocation">一周天气及气象台预警</string>
+    <string name="mapViewButton">天气查看</string>
+    <string name="topEvents">高亮显示活动</string>
+    <string name="eventButton">根据分类查看</string>
+    <string name="sourceText">来源</string>
+    <string name="categoryText">种类</string>
+    <string name="prevButton">上一个</string>
+    <string name="nextButton">下一个</string>
+    <string name="title_activity_maps">地图</string>
+    <string name="geocoder_no_results">该地区没有新闻</string>
+    <string name="error_result">获取新闻失败</string>
+    <string name="error_headline">获取标题失败</string>
+    <string name="error_Location">地点不存在</string>
+    <string name="error_prevLocation">没有历史地点！</string>
+    <string name="error_Location_news">获取当地新闻失败!</string>
+    <string name="error_source">获取来源失败!</string>
+    <string name="eventAPI">EmgTCUA44nyLLdokdz7kWehyuXMS4kqA</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGVybWFudWJpcyIsImEiOiJja3c1cWljbjIwZXZ4MzJvOHpnMHp3ZGFuIn0.17kE1xt2_5PPSf6i-HnBiw</string>
+    <string name="weatherAPI">e46d51895db2db351abde723aa9d9b25</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="signup">注册</string>
+    <string name="Login">欢迎登录</string>
+    <string name="password2">再次输入密码</string>
+    <string name="Back">返回登录界面</string>
+    <string name="Logout">登出</string>
+    <string name="results">搜索结果：</string>
+    <string name="Home_title">欢迎来到活动搜索</string>
+    <string name="not_found">无可用结果</string>
+    <string-array name="list">
+        <item>根据相关性(降序)</item>
+        <item>根据相关性(顺序)</item>
+        <item>根据名字(升序)</item>
+        <item>根据名字(降序)</item>
+        <item>随机</item>
+    </string-array>
+    <string name="alert">预警</string>
+    <string name="localweather">华盛顿天气</string>
+    <string name="alertTitle">气象台预警</string>
+    <string name="alertError">尚无预警</string>
+    <string name="rememberMe">记住我</string>
+
+</resources>
