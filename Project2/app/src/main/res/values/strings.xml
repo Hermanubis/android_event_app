@@ -31,15 +31,15 @@
     <string name="password2">Confirm Password</string>
     <string name="Back">Back To Login</string>
     <string name="Logout">Logout</string>
-    <string name="results">Results for</string>
+    <string name="results">Results for </string>
     <string name="Home_title">Welcome to Event Find</string>
     <string name="not_found">No Search Term Found</string>
     <string-array name="list">
-        <item>Sort By name(ascending)</item>
-        <item>Sort By name(descending)</item>
-        <item>Sort By Relevance(ascending)</item>
-        <item>Random</item>
-        <item>Sort By Relevance(descending)</item>
+        <item>Sports</item>
+        <item>Food</item>
+        <item>Music</item>
+        <item>Show</item>
+        <item>Reset</item>
     </string-array>
     <string name="alert">View Alerts</string>
     <string name="localweather">Washington Weather</string>

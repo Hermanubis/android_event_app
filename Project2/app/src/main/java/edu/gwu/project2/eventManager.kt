@@ -28,23 +28,22 @@ class eventManager {
     fun retrieveEvents(eventAPI: String, term: String,sort: String): List<event> {
         val eventList: MutableList<event> = mutableListOf()
 
-        var Category = "random"
-
-        if(sort == "Sort By name(ascending)"){
-            Category = "name,asc"
-        }else if(sort == "Sort By name(descending)"){
-            Category = "name,desc"
-        }else if(sort == "Sort By Relevance(ascending)"){
-            Category = "relevance,asc"
-        }else if(sort == "Random"){
-            Category = "random"
+        var Category = ""
+        if(sort == "Sports"){
+            Category = "sport"
+        }else if(sort == "Food"){
+            Category = "food"
+        }else if(sort == "Music"){
+            Category = "music"
+        }else if(sort == "Show"){
+            Category = "show"
         }else{
-            Category = "relevance,desc"
+            Category = ""
         }
 
         var request: Request =
             Request.Builder()
-                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&sort=${Category}&endDateTime=2022-04-25T14:00:00Z&apikey=$eventAPI")
+                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&classificationName=${Category}&apikey=$eventAPI")
                 .header("Authorization", "$eventAPI")
                 .build()
 
@@ -66,6 +65,7 @@ class eventManager {
 //                val imagesArr = curr.getJSONArray("images")
 //                val imagesArr1 = imagesArr.getJSONObject(0)
 //                val urlToImage = imagesArr1.getString("url")
+
                 val urlToImage = "https://helenkellerfestival.com/site/wp-content/uploads/2018/06/ticket.jpg"
                 val emb1 = curr.getJSONObject("_embedded")
                 val venues = emb1.getJSONArray("venues")
@@ -80,25 +80,13 @@ class eventManager {
         }
         return eventList
     }
-    fun retrieveVenueEvents(eventAPI: String, term: String,sort: String): List<event> {
+    fun retrieveVenueEvents(eventAPI: String, term: String): List<event> {
         val eventList: MutableList<event> = mutableListOf()
-        var Category = "random"
 
-        if(sort == "Sort By name(ascending)"){
-            Category = "name,asc"
-        }else if(sort == "Sort By name(descending)"){
-            Category = "name,desc"
-        }else if(sort == "Sort By Relevance(ascending)"){
-            Category = "relevance,asc"
-        }else if(sort == "Random"){
-            Category = "random"
-        }else{
-            Category = "relevance,desc"
-        }
 
         var request: Request =
             Request.Builder()
-                .url("https://app.ticketmaster.com/discovery/v2/venues.json?keyword=${term}&sort=${Category}&apikey=$eventAPI")
+                .url("https://app.ticketmaster.com/discovery/v2/venues.json?keyword=${term}&apikey=$eventAPI")
                 .header("Authorization", "$eventAPI")
                 .build()
 

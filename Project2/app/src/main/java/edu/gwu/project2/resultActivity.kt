@@ -80,33 +80,42 @@ class resultActivity : AppCompatActivity() {
                     }
                 }
             }
-            if(spinner !=null){
-                val adapter = ArrayAdapter(this,
-                    android.R.layout.simple_spinner_item, list)
-                spinner.adapter = adapter
+            if (Type == "keyword") {
+                if (spinner != null) {
+                    val adapter = ArrayAdapter(
+                        this,
+                        android.R.layout.simple_spinner_item, list
+                    )
+                    spinner.adapter = adapter
 //                val SavedCat = preferences.getInt("SrcCat",-1)
 //                spinner.setSelection(SavedCat)
-                spinner.onItemSelectedListener = object :
-                    AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>,
-                                                view: View, position: Int, id: Long) {
-                        val sort = spinner.selectedItem.toString()
-                        if (Type == "keyword"){
+                    spinner.onItemSelectedListener = object :
+                        AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View, position: Int, id: Long
+                        ) {
+                            val sort = spinner.selectedItem.toString()
+
                             doAsync {
                                 val events: List<event> = try {
-                                    eventManager.retrieveEvents(eventAPI, searchTerm,sort)
-                                } catch(exception: Exception) {
-                                    Log.e("resultActivity", getString(R.string.error_result), exception)
+                                    eventManager.retrieveEvents(eventAPI, searchTerm, sort)
+                                } catch (exception: Exception) {
+                                    Log.e(
+                                        "resultActivity",
+                                        getString(R.string.error_result),
+                                        exception
+                                    )
                                     listOf<event>()
                                 }
 
                                 runOnUiThread {
-                                    if(events.isNotEmpty()){
+                                    if (events.isNotEmpty()) {
                                         val adapter = eventAdapter(events)
                                         recyclerView.adapter = adapter
-                                        recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
-                                    }
-                                    else{
+                                        recyclerView.layoutManager =
+                                            LinearLayoutManager(this@resultActivity)
+                                    } else {
                                         Toast.makeText(
                                             this@resultActivity,
                                             getString(R.string.error_result),
@@ -115,36 +124,38 @@ class resultActivity : AppCompatActivity() {
                                     }
                                 }
                             }
-                        }else if(Type == "venue"){
-                            doAsync {
-                                val events: List<event> = try {
-                                    eventManager.retrieveVenueEvents(eventAPI, searchTerm,sort)
-                                } catch(exception: Exception) {
-                                    Log.e("resultActivity", getString(R.string.error_result), exception)
-                                    listOf<event>()
-                                }
 
-                                runOnUiThread {
-                                    if(events.isNotEmpty()){
-                                        val adapter = eventAdapter(events)
-                                        recyclerView.adapter = adapter
-                                        recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
-                                    }
-                                    else{
-                                        Toast.makeText(
-                                            this@resultActivity,
-                                            getString(R.string.error_result),
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                                }
-                            }
+
                         }
 
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                            TODO("Not yet implemented")
+                        }
+                    }
+                }
+            }else if(Type == "venue"){
+                spinner.visibility = View.INVISIBLE
+                doAsync {
+                    val events: List<event> = try {
+                        eventManager.retrieveVenueEvents(eventAPI, searchTerm)
+                    } catch(exception: Exception) {
+                        Log.e("resultActivity", getString(R.string.error_result), exception)
+                        listOf<event>()
                     }
 
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-                        TODO("Not yet implemented")
+                    runOnUiThread {
+                        if(events.isNotEmpty()){
+                            val adapter = eventAdapter(events)
+                            recyclerView.adapter = adapter
+                            recyclerView.layoutManager = LinearLayoutManager(this@resultActivity)
+                        }
+                        else{
+                            Toast.makeText(
+                                this@resultActivity,
+                                getString(R.string.error_result),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
             }
