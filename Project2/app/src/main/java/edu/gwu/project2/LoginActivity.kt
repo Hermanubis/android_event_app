@@ -31,7 +31,9 @@ class LoginActivity : AppCompatActivity() {
         // Tells Android which layout file should be used for this screen.
         setContentView(R.layout.activity_login)
 
+
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth.signOut()
 
         preferences = getSharedPreferences("credential", Context.MODE_PRIVATE)
 
