@@ -33,9 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        Log.d("MainActivity", "onCreate called!")
-        preferences =
-            getSharedPreferences("creditial", Context.MODE_PRIVATE)
+        preferences = getSharedPreferences("credential", Context.MODE_PRIVATE)
 
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
@@ -43,42 +41,51 @@ class LoginActivity : AppCompatActivity() {
         signUp = findViewById(R.id.signUp)
         progressBar = findViewById(R.id.progressBar)
         remember = findViewById(R.id.remember)
+        login.isEnabled = false
+
+
 
         val switchState = preferences.getString("switch", "")
-        if(switchState == "1"){
-            remember.isActivated = true
-        }
-        else{
-            remember.isActivated = false
-        }
-
-        if(remember.isActivated){
-            username.setText(preferences.getString("username", ""))
-            password.setText(preferences.getString("password", ""))
-            if(username.text.toString().isNotEmpty() && password.text.toString().isNotEmpty()){
-                login.isEnabled = true
+        remember.isChecked = switchState == "1"
+            if(remember.isChecked){
+                val editor = preferences.edit()
+                val savedUsername = preferences.getString("username","")
+                val savedPassword = preferences.getString("password","")
+                username.setText(savedUsername)
+                password.setText(savedPassword)
+                if(username != null && password!= null){
+                    login.isEnabled =true
+                }
+                editor.putString("switch", "1").apply()
+            }
+            else{
+                login.isEnabled = false
+            }
+        remember.setOnClickListener{
+            if(remember.isChecked){
+                val editor = preferences.edit()
+                editor.putString("switch", "1").apply()
+            }else{
+                val editor = preferences.edit()
+                editor.putString("switch", "0").apply()
             }
         }
-        else{
-            login.isEnabled = false
-        }
-        signUp.isEnabled = true
+
 
         login.setOnClickListener {
+
             val inputtedUsername = username.text.toString().trim()
             val inputtedPassword = password.text.toString().trim()
 
-            if (remember.isActivated){
+            if (remember.isChecked){
                 val editor = preferences.edit()
                 editor.putString("username", inputtedUsername).apply()
                 editor.putString("password", inputtedPassword).apply()
-                editor.putString("switch", "1").apply()
             }
             else{
                 val editor = preferences.edit()
                 editor.putString("username", "").apply()
                 editor.putString("password", "").apply()
-                editor.putString("switch", "0").apply()
             }
 
             firebaseAuth.signInWithEmailAndPassword(inputtedUsername, inputtedPassword)
@@ -131,7 +138,6 @@ class LoginActivity : AppCompatActivity() {
 
                 // Kotlin shorthand for login.setEnabled(enableButton)
                 login.isEnabled = enableButton
-                signUp.isEnabled = enableButton
             }
 
             override fun afterTextChanged(p0: Editable?) {}

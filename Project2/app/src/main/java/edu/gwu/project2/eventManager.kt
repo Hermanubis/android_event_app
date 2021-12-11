@@ -29,13 +29,13 @@ class eventManager {
         val eventList: MutableList<event> = mutableListOf()
 
         var Category = ""
-        if(sort == "Sports"){
+        if(sort == "Sports"|| sort =="体育"){
             Category = "sport"
-        }else if(sort == "Food"){
+        }else if(sort == "Food"|| sort =="美食"){
             Category = "food"
-        }else if(sort == "Music"){
+        }else if(sort == "Music"|| sort =="音乐"){
             Category = "music"
-        }else if(sort == "Show"){
+        }else if(sort == "Show"|| sort =="表演"){
             Category = "show"
         }else{
             Category = ""
