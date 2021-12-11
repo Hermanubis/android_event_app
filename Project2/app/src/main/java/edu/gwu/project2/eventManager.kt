@@ -28,22 +28,22 @@ class eventManager {
     fun retrieveEvents(eventAPI: String, term: String,sort: String): List<event> {
         val eventList: MutableList<event> = mutableListOf()
 
-        var Category = ""
-        if(sort == "Sports"|| sort =="体育"){
-            Category = "sport"
-        }else if(sort == "Food"|| sort =="美食"){
-            Category = "food"
-        }else if(sort == "Music"|| sort =="音乐"){
-            Category = "music"
-        }else if(sort == "Show"|| sort =="表演"){
-            Category = "show"
+        var Category = "relevance,desc"
+        if(sort == "Sort By name(ascending)" || sort == "根据名字(升序)"){
+            Category = "name,asc"
+        }else if(sort == "Sort By name(descending)" || sort == "根据名字(降序)"){
+            Category = "name,desc"
+        }else if(sort == "Sort By Relevance(ascending)" || sort == "根据相关性(顺序)"){
+            Category = "relevance,asc"
+        }else if(sort == "Random" || sort == "随机"){
+            Category = "random"
         }else{
-            Category = ""
+            Category = "relevance,desc"
         }
 
         var request: Request =
             Request.Builder()
-                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&classificationName=${Category}&apikey=$eventAPI")
+                .url("https://app.ticketmaster.com/discovery/v2/events.json?keyword=${term}&countryCode=US&sort=${Category}&apikey=$eventAPI")
                 .header("Authorization", "$eventAPI")
                 .build()
 

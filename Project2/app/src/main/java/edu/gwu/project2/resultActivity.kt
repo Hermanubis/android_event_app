@@ -51,7 +51,7 @@ class resultActivity : AppCompatActivity() {
             val eventAPI = getString(R.string.eventAPI)
             val weatherAPI = getString((R.string.weatherAPI))
             val city = "washington"
-            val title = getString(R.string.results)+searchTerm
+            val title = getString(R.string.results)+ " " + searchTerm
             setTitle(title)
             doAsync {
 

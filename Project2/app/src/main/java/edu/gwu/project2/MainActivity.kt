@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var search: Button
     private lateinit var venuesearch: Button
     private lateinit var mapButton: Button
-    private lateinit var viewEvents: Button
     private lateinit var logout:Button
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -36,8 +35,9 @@ class MainActivity : AppCompatActivity() {
         search = findViewById(R.id.search)
         venuesearch = findViewById(R.id.venue)
         mapButton = findViewById(R.id.mapButton)
-        viewEvents = findViewById(R.id.viewEvents)
         logout = findViewById(R.id.logout)
+
+        setTitle(getString(R.string.Home_title))
 
         search.isEnabled = false
 

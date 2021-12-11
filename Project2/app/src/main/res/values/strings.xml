@@ -35,15 +35,16 @@
     <string name="Home_title">Welcome to Event Find</string>
     <string name="not_found">No Search Term Found</string>
     <string-array name="list">
-        <item>Sports</item>
-        <item>Food</item>
-        <item>Music</item>
-        <item>Show</item>
-        <item>Reset</item>
+        <item>Sort By Relevance(descending)</item>
+        <item>Sort By Relevance(ascending)</item>
+        <item>Sort By name(ascending)</item>
+        <item>Sort By name(descending)</item>
+        <item>Random</item>
     </string-array>
     <string name="alert">View Alerts</string>
     <string name="localweather">Washington Weather</string>
     <string name="alertTitle">Weather Alert</string>
     <string name="alertError">No Active Alert</string>
+    <string name="rememberMe">Remember Me</string>
 
 </resources>

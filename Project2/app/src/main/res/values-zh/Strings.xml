@@ -35,15 +35,16 @@
     <string name="Home_title">欢迎来到活动搜索</string>
     <string name="not_found">无可用结果</string>
     <string-array name="list">
-        <item>体育</item>
-        <item>美食</item>
-        <item>音乐</item>
-        <item>表演</item>
-        <item>重置</item>
+        <item>根据相关性(降序)</item>
+        <item>根据相关性(顺序)</item>
+        <item>根据名字(升序)</item>
+        <item>根据名字(降序)</item>
+        <item>随机</item>
     </string-array>
     <string name="alert">预警</string>
     <string name="localweather">华盛顿天气</string>
     <string name="alertTitle">气象台预警</string>
     <string name="alertError">尚无预警</string>
+    <string name="rememberMe">记住我</string>
 
 </resources>
